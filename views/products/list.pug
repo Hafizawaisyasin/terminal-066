@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+    .row
+        .col-sm-8
+            h1=title
+        .col-sm-4
+            a(href="/products/add", class="btn btn-info my-10 float-right") Add New Product
+    table.table
+        thead
+            tr
+                th(style="text-align:center") Name
+                th(style="text-align:center") Price
+                th(style="text-align:center") Weight
+                th(style="text-align:center") Actions
+        tbody
+            each product in products
+                tr
+                    td(style="text-align:center")=product.name
+                    td(style="text-align:center")=product.price
+                    td(style="text-align:center")=`${product.weight} g`
+                    td(style="text-align:center")
+                        a(href="/products/delete/"+product._id, class="btn faas btn-danger") <i class="fas fa-trash-alt"></i>
+                        a(href="/products/edit/"+product._id, class="btn  faas btn-success") <i class="fas fa-edit"></i>
+                        a(href="/products/cart/"+product._id, class="btn faas btn-info") <i class="fas fa-cart-plus"></i>
+
+
+
+

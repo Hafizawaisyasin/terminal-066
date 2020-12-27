@@ -10,6 +10,8 @@ router.get("/register", function (req, res, next) {
 router.post("/register", async function (req, res, next) {
 	console.log("awais");
 	let user = new User(req.body);
+	const { error } = validate(req.body);
+	if (error) return res.status(400).send(error.details[0].message);
 	await user.save();
 	res.redirect("/");
 });

@@ -5,7 +5,7 @@ const dietSchema = new mongoose.Schema({
 	type: {
 		type: String,
 		required: true,
-		minlength: 5,
+		minlength: 2,
 		maxlength: 50,
 	},
 	description: {
@@ -20,8 +20,8 @@ const Diet = mongoose.model("Diet", dietSchema);
 
 function validateDiet(data) {
 	const schema = Joi.object({
-	  type: Joi.string().min(3).max(20).required(),
-	  description: Joi.string().min(10).max(400).required(),
+	  type: Joi.string().min(2).max(20).required(),
+	  description: Joi.string().min(10).max(900).required(),
 
 	});
 	return schema.validate(data, { abortEarly: false });

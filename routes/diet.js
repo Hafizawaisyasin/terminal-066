@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var checkSessionAuth = require("../middlewares/checkSessionAuth");
+var admin = require('../middlewares/admin')
 var {Diet,validate} = require("../models/diet");
 
 /* GET users listing. */
@@ -13,7 +14,7 @@ router.get("/", function (req, res, next) {
 	res.render("diet/list");
 });
 //add
-router.get("/add", checkSessionAuth, async function (req, res, next) {
+router.get("/add", checkSessionAuth,admin, async function (req, res, next) {
 	res.render("diet/add");
 });
 
@@ -25,7 +26,7 @@ router.post("/add", async function (req, res, next) {
 	res.redirect("/diet");
 });
 //delete
-router.get("/delete/:id", checkSessionAuth, async function (req, res, next) {
+router.get("/delete/:id", checkSessionAuth,admin, async function (req, res, next) {
 	let diet = await Diet.findByIdAndDelete(req.params.id);
 	res.redirect("/diet");
 });

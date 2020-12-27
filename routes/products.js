@@ -16,7 +16,7 @@ router.get("/add", checkSessionAuth ,admin, async function (req, res, next) {
 	res.render("products/add");
 });
 
-router.post("/add", async function (req, res, next) {
+router.post("/add",admin, async function (req, res, next) {
 	const { error } = validate(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 	console.log("awais")
@@ -24,14 +24,14 @@ router.post("/add", async function (req, res, next) {
 	await product.save();
 	res.redirect("/products");
 });
-router.get("/delete/:id", async function (req, res, next) {
+router.get("/delete/:id",admin, async function (req, res, next) {
 	let product = await Product.findByIdAndDelete(req.params.id);
 	if (!product) return res.status(404).send("The Product with the given ID was not found.");
 	res.redirect("/products");
 });
 
 //for edit
-router.get("/edit/:id", async function (req, res, next) {
+router.get("/edit/:id",admin, async function (req, res, next) {
 	let product = await Product.findById(req.params.id);
 	res.render("products/edit", { product });
 });
